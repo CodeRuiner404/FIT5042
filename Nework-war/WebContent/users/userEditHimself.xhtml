@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	<title>User Edit</title>
+</h:head>
+<body>
+	<div class="container">
+		<div class="navbar navbar-inverse">
+			<div class="navbar-brand">
+				<h1>Edit USER</h1>
+			</div>
+		</div>
+		<h:form id="MyForm">
+			<table class="table table-bordered ">
+				<tr>
+					<td width="150" valign="top">Id:</td>
+
+					<td valign="bottom"><h:outputLabel id="Id">#{CustomerManagementApplication.oneStaff.appUserID}</h:outputLabel>
+					</td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">User name:</td>
+					<td valign="bottom"><h:inputText id="userName"
+							value="#{staffControl.staff.appUserName}"
+							required="true"
+							validatorMessage="Please enter user name with length between 1 and 20."
+							requiredMessage="Please enter the user name. ">
+							<f:validateLength minimum="1" maximum="20" />
+							</h:inputText>
+						</td>
+				</tr>	
+				<tr>
+					<td width="100" valign="top">User password:</td>
+					<td valign="bottom"><h:inputText id="userPassword"
+							value="#{staffControl.staff.appUserPassword}"
+							required="true"
+							requiredMessage="Please enter the user password. ">
+							</h:inputText>
+						</td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">User Email:</td>
+					<td valign="bottom"><h:inputText id="userEmail"
+							value="#{staffControl.staff.staffEmail}"
+							required="true"
+							validatorMessage="Please enter the valied email"
+							requiredMessage="Please enter the user Email. ">
+							<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+							</h:inputText>
+						</td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">User overtime:</td>
+					<td valign="bottom"><h:inputText id="userOvertime"
+							value="#{staffControl.staff.overtime}"
+							required="true"
+							validatorMessage="The overtime should be lagger than 0"
+							requiredMessage="Please enter the user password. ">
+							<f:validateLongRange minimum="0"/>
+							</h:inputText>
+						</td>
+				</tr>																		
+			</table>
+			<h:commandButton id="submit" value="Submit" action="#{userManagedBean.editStaff(staffControl.staff)}" class="btn btn-primary">
+			</h:commandButton>
+			<h:link id="close" value="Close" outcome="index.xhtml" class="btn btn-primary" />
+		</h:form>
+	</div>
+</body>
+</html>

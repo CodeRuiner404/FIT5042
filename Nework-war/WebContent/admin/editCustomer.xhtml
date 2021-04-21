@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	<title>Customer Edit</title>
+</h:head>
+<body>
+	<div class="container">
+		<div class="navbar navbar-inverse">
+			<div class="navbar-brand">
+				<h1>Edit customer</h1>
+			</div>
+		</div>
+		<h:form id="MyForm">
+			<table class="table table-bordered ">
+				<tr>
+					<td width="150" valign="top">Id:</td>
+
+					<td valign="bottom"><h:outputLabel id="Id">#{customerController.customer.customer_ID}</h:outputLabel>
+					</td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">Customer name:</td>
+					<td valign="bottom"><h:inputText id="customerName"
+							value="#{customerController.customer.customer_name}"
+							required="true"
+							validatorMessage="Please enter customer name with length between 1 and 20."
+							requiredMessage="Please enter the customer name. ">
+							<f:validateLength minimum="1" maximum="20" />
+							</h:inputText>
+						</td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">Customer information:</td>
+					<td valign="bottom"><h:inputText id="customerInformation"
+							value="#{customerController.customer.customer_information}"
+							required="true"
+							validatorMessage="Please enter customer name with length between 5 and 50."
+							requiredMessage="Please enter the customer name. ">
+							<f:validateLength minimum="5" maximum="50" />
+							</h:inputText>
+						</td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">streetAddress:</td>
+					<td valign="bottom"><h:inputText id="customer_streetAddress"
+							value="#{customerController.customer.address.streetAddress}"
+							required="true"
+							validatorMessage="Please enter streetAddress with length between 5 and 50."
+							requiredMessage="Please enter the streetAddress. ">
+							<f:validateLength minimum="5" maximum="50" />
+							</h:inputText>
+							 </td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">suburb:</td>
+					<td valign="bottom"><h:inputText id="customer_suburb"
+							value="#{customerController.customer.address.suburb}"
+							required="true"
+							requiredMessage="Please enter the suburb. ">
+							</h:inputText>
+							 </td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">state:</td>
+					<td valign="bottom"><h:inputText id="customer_state"
+							value="#{customerController.customer.address.state}"
+							required="true"
+							requiredMessage="Please enter the state. ">
+							</h:inputText>
+							 </td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">GMV:</td>
+
+					<td valign="bottom"><h:inputText id="customer-GMV"
+							value="#{customerController.customer.customer_GMV}"
+							required="true"
+							validatorMessage="Please enter a value greater than 0.0"
+							requiredMessage="Please enter the gross merchandise volume. ">
+
+							<f:convertNumber currencyCode="AUD" type="currency"
+								minFractionDigits="0" />
+							<f:validateLongRange minimum="0" />
+
+						</h:inputText></td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">Cooperation start date:</td>
+
+					<td valign="bottom"><h:inputText id="customer-cowork-year"
+							value="#{customerController.customer.customer_co_year}"
+							required="true" validatorMessage="Please enter the cooperate "
+							requiredMessage="Please enter the cooperation date with correct formate. "
+							converterMessage="Please use the formate: yyyy-mm-dd hh:mm:ss ">
+							<f:convertDateTime pattern="yyyy-mm-dd hh:mm:ss" />
+							</h:inputText>
+						</td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">Customer type:</td>
+					<td valign="bottom"><h:selectOneMenu
+							value="#{customerController.customer.customer_type}">
+							<f:selectItems value="#{customerController.types}"/>
+						</h:selectOneMenu></td>
+				</tr>
+			</table>
+			<h:commandButton id="submit" value="Submit" action="#{customerController.editCustomer()}" class="btn btn-primary">
+				<f:param name="customer_ID" value="#{customerController.customer_ID}" />
+			</h:commandButton>
+			<h:link id="close" value="Close" outcome="adminCustomer.xhtml"
+				class="btn btn-primary" />
+		</h:form>
+	</div>
+</body>
+</html>

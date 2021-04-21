@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:s="http://xmlns.jcp.org/jsf/core"
+	xmlns:o="http://omnifaces.org/ui"
+    xmlns:of="http://omnifaces.org/functions"> 
+
+<h:head>
+<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	<title>Add Contact</title>
+</h:head> 
+<body>
+<div class="container">
+		<div class="navbar navbar-inverse">
+			<div class="navbar-brand contact">
+				<h1>Add contact</h1>
+			</div>
+		</div>
+		<div>
+			<f:view>
+				<h:form>
+					<table class="table table-bordered">
+
+						<tr>
+							<td><h:outputLabel value="Contact_name:"	for="Contact_name" /></td>
+							<td><h:inputText id="contact_name"
+									value="#{addContact.contact_name}"
+									title="Contact_name" required="true"
+									validatorMessage="Contact name length should between 1 and 20"
+									requiredMessage="Please enter the name of contact. "> 
+									<f:validateLength	minimum="1" maximum="20" /></h:inputText>						
+		                     </td>
+						</tr>
+						
+						<tr>
+                        <td>
+                            <h:outputLabel value="Contact_phoneNumber:" for="Contact_phoneNumber" />
+                        </td>
+                        <td>
+                            <h:inputText id="Contact_phoneNumber" value="#{addContact.contact_phoneNumber}" title="Contact_phoneNumber"
+                            required="true" validatorMessage="Please enter contact phone number in the formate:XXX-XXX-XXXX." requiredMessage="Please enter the phone number of contact. ">
+                                                 <f:validateRegex pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$" /> </h:inputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Contact_email:" for="Contact_email" />
+                        </td>
+                        <td>
+                            <h:inputText id="Contact_email" value="#{addContact.contact_email}" title="Contact_email"
+                            required="true"
+                                         validatorMessage="Please enter contact email in correct format."
+							requiredMessage="Please enter the email. ">
+                                                 <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" /> </h:inputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Contact_title:" for="Contact_title" />
+                        </td>
+                        <td>
+                            <h:inputText id="Contact_title" value="#{addContact.title}" title="Contact_title"
+                            required="true"
+                                         validatorMessage="Please enter contact title with length between 5 and 15."
+							requiredMessage="Please enter the address. ">
+                                                 <f:validateLength  minimum="5" maximum = "15"/> </h:inputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="contact_GMV:" for="contact_GMV" />
+                        </td>
+                        <td>
+                            <h:inputText id="contact_GMV" value="#{addContact.contact_GMV}" title="contact_GMV" 
+                            required="true"  validatorMessage="Please enter a value greater than 0.0" requiredMessage="Please enter the gross merchandise volume. ">
+                                 <f:validateLongRange minimum="0"/>
+                                 </h:inputText>
+                        </td>                       
+                    </tr>                              
+					</table>
+					<h:commandButton id="submit" value="Submit" action="#{addContact.addContact1()}" class="btn btn-primary" />
+                <h:link id="close" value="Close" outcome="adminContact.xhtml"
+						          class="btn btn-primary" />
+
+				</h:form>
+
+			</f:view>
+		</div>
+
+	</div>
+
+
+</body> 
+</html>

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:s="http://java.sun.com/jsf/core">
+
+<h:head>
+	<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	<title>Add User</title>
+</h:head>
+<body>
+	<div class="container">
+		<div class="navbar navbar-inverse">
+			<div class="navbar-brand">
+				<h1>Add User</h1>
+			</div>
+		</div>
+		<div>
+			<f:view>
+				<h:form>
+					<table class="table table-bordered ">
+						<tr>
+							<td><h:outputLabel value="userName:" for="userName" /></td>
+							<td><h:inputText id="userName" value="#{addStaff.appUserName}"
+									title="user_name" required="true"
+									validatorMessage="user name length should between 1 and 20"
+									requiredMessage="Please enter the name of user. ">
+									 <f:validateLength minimum="1" maximum="20" /></h:inputText>						
+		                     </td>
+						</tr>	
+						<tr>
+							<td><h:outputLabel value="userPassword:" for="userPassword" /></td>
+							<td><h:inputText id="userPassword"
+									value="#{addStaff.appUserPassword}"
+									title="user_password" required="true"
+									validatorMessage="user password length should between 1 and 20"
+									requiredMessage="Please enter the user password. "> <f:validateLength
+									minimum="1" maximum="20" /></h:inputText>						
+		                     </td>
+						</tr>					
+					</table>
+					<h:commandButton id="submit" value="Submit" action="#{addStaff.addStaff()}" class="btn btn-primary" />
+                <h:link id="close" value="Close" outcome="adminStaff.xhtml" class="btn btn-primary" />
+				</h:form>
+			</f:view>
+	   </div>
+	   </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	<title>Add Type</title>
+</h:head>
+<body>
+	<div class="container">
+		<div class="navbar navbar-inverse">
+			<div class="navbar-brand">
+				<h1>Add Type</h1>
+			</div>
+		</div>
+		<div>
+			<f:view>
+				<h:form>
+					<table class="table table-bordered ">
+						<tr>
+							<td><h:outputLabel value="typeName:"
+									for="typeName" /></td>
+							<td><h:inputText id="typeName"
+									value="#{addType.typeName}"
+									title="type_name" required="true"
+									validatorMessage="Type name length should between 1 and 20"
+									requiredMessage="Please enter the name of type. "> <f:validateLength
+									minimum="1" maximum="20" /></h:inputText>						
+		                     </td>
+						</tr>						
+					</table>
+					<h:commandButton id="submit" value="Submit" action="#{addType.addType()}" class="btn btn-primary" />
+                <h:link id="close" value="Close" outcome="adminType.xhtml" class="btn btn-primary" />
+				</h:form>
+			</f:view>
+		</div>
+	</div>
+</body>
+</html>

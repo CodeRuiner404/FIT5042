@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:s="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	<title>The detail of contact</title>
+</h:head>
+<body>
+	<div class="container">
+		<div class="navbar navbar-inverse">
+			<div class="navbar-brand">
+				<h1>Contact detail information</h1>
+			</div>
+		</div>
+		<h:form id="contactDetail">
+			<table class="table table-bordered ">
+				<tr>
+					<td width="150" valign="top">Id:</td>
+
+					<td valign="bottom"><h:outputLabel id="Id">#{contactController.contact.contactID}</h:outputLabel>
+					</td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">Name:</td>
+
+					<td valign="bottom"><h:outputLabel id="Name">#{contactController.contact.contact_name}</h:outputLabel>
+					</td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">Title:</td>
+
+					<td valign="bottom"><h:outputLabel id="title">#{contactController.contact.title}</h:outputLabel>
+					</td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">GMV:</td>
+
+					<td valign="bottom"><h:outputLabel id="Gmv">#{contactController.contact.contact_GMV}</h:outputLabel>
+					</td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">Phone number:</td>
+
+					<td valign="bottom"><h:outputLabel id="PhoneNumber">#{contactController.contact.contact_phoneNumber}</h:outputLabel>
+					</td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">Email:</td>
+
+					<td valign="bottom"><h:outputLabel id="email">#{contactController.contact.contact_email}</h:outputLabel>
+					</td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">Company:</td>
+
+					<td valign="bottom"><h:outputLabel id="company">#{contactController.contact.contact_company}</h:outputLabel>
+					</td>
+				</tr>
+			</table>
+            <div>
+            <h:link id="Return" value="Return" outcome="customerDeatil.xhtml" class="btn btn-primary" >
+            <f:param name="customer_ID" value="#{contactController.contact.contact_company.customer_ID}" />
+            </h:link>
+            </div>			
+		</h:form>
+	</div>
+</body>
+</html>
+
+

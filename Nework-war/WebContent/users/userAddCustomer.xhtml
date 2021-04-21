@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:s="http://java.sun.com/jsf/core">
+
+<h:head>
+	<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	<title>Add Customer</title>
+</h:head>
+<body>
+	<div class="container">
+		<div class="navbar navbar-inverse">
+			<div class="navbar-brand">
+				<h1>Add customer</h1>
+			</div>
+		</div>
+		<div>
+			<f:view>
+				<h:form>
+					<table class="table table-bordered ">
+						<tr>
+							<td><h:outputLabel value="customer_name:"
+									for="customer_name" /></td>
+							<td><h:inputText id="customer_name"
+									value="#{staffAddCustomer.customer_name}"
+									title="customer_name" required="true"
+									validatorMessage="Customer name length should between 1 and 20"
+									requiredMessage="Please enter the name of customer. "> <f:validateLength
+									minimum="1" maximum="20" /></h:inputText>						
+		                     </td>
+						</tr>					
+						<tr>
+                        <td>
+                            <h:outputLabel value="customer_information:" for="customer_information" />
+                        </td>
+                        <td>
+                            <h:inputText id="customer_information" value="#{staffAddCustomer.customer_information}" title="customer_information"
+                            required="true"
+                                         validatorMessage="Customer information length should between 0 and 100"
+                                                 requiredMessage="Please enter the information of customer. ">
+                                                 <f:validateLength  minimum="5" maximum = "50"/> </h:inputText>
+                        </td>
+
+                    </tr>                  
+                    <tr>
+                        <td>
+                            <h:outputLabel value="customer_GMV:" for="customer_GMV" />
+                        </td>
+                        <td>
+                            <h:inputText id="customer_GMV" value="#{staffAddCustomer.customer_GMV}" title="customer_GMV" 
+                            required="true"
+                                         validatorMessage="Please enter a value greater than 0.0"
+                                                 requiredMessage="Please enter the gross merchandise volume. ">
+                                                 <f:convertNumber currencyCode="AUD" type="currency" minFractionDigits="0" />
+                                 <f:validateLongRange minimum="0"/></h:inputText>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="customer_co_year:" for="customer_co_year" />
+                        </td>
+                        <td>
+                            <h:inputText id="customer_co_year" value="#{staffAddCustomer.customer_co_year}" title="customer_co_year"
+                            required="true"
+                                         validatorMessage="Please enter a value greater than 0.0"
+                                                 requiredMessage="Please enter the cooperation year with customer in the formate:mm/dd/yyyy. "
+                                                 converterMessage="Please use the formate: mm/dd/yyyy" >
+                                                 <f:convertDateTime pattern="mm/dd/yyyy"/>
+                                                 </h:inputText>
+                        </td>                       
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="customer_type:" for="customer_type" />
+                        </td>
+                        <td>
+                            <h:selectOneMenu value="#{staffAddCustomer.customer_type}">
+					        <f:selectItems value="#{staffAddCustomer.types}"/>
+				             </h:selectOneMenu>
+                        </td>
+
+                    </tr>
+                     <tr>
+                    <td>
+                        <h:outputLabel value="streetAddress:" for="streetAddress" />
+                    </td>
+                    <td>
+                    <h:inputText id="customer_streetAddress" value="#{staffAddCustomer.streetAddress}" title="streetAddress"
+                            required="true"
+                                         validatorMessage="streetAddress length should between 5 and 50"
+                                                 requiredMessage="Please enter the street address! ">
+                                                 <f:validateLength  minimum="5" maximum = "50"/> </h:inputText>
+                        </td>
+                    </tr>
+               <tr>
+                    <td>
+                        <h:outputLabel value="suburb:" for="suburb" />
+                    </td>
+                    <td>
+                    <h:inputText id="customer_suburb" value="#{staffAddCustomer.suburb}" title="suburb"
+                            required="true" requiredMessage="Please enter the suburb! ">
+                   </h:inputText>
+                        </td>
+               </tr>
+               <tr>
+                    <td>
+                        <h:outputLabel value="state:" for="state" />
+                    </td>
+                    <td>
+                    <h:inputText id="customer_state" value="#{staffAddCustomer.state}" title="state"
+                            required="true" requiredMessage="Please enter the state! ">
+                   </h:inputText>
+                        </td>
+               </tr>
+					</table>
+					<h:commandButton id="submit" value="Submit" action="#{staffAddCustomer.addCustomer()}" class="btn btn-primary" >
+					<f:param name="staff_ID" value="#{CustomerManagementApplication.oneStaff.appUserID}" />
+					</h:commandButton>
+                <h:link id="close" value="Close" outcome="index.xhtml" class="btn btn-primary" />
+
+				</h:form>
+
+			</f:view>
+		</div>
+
+	</div>
+
+</body>
+</html>

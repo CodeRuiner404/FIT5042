@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:s="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	<title>The detail of customer</title>
+</h:head>
+<body>
+	<div class="container">
+		<div class="navbar navbar-inverse">
+			<div class="navbar-brand">
+				<h1>Customer detail information</h1>
+			</div>
+		</div>
+		<h:form id="customerDetail">
+			<table class="table table-bordered ">
+				<tr>
+					<td width="150" valign="top">Id:</td>
+
+					<td valign="bottom"><h:outputLabel id="Id">#{customerController.customer.customer_ID}</h:outputLabel>
+					</td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">Name:</td>
+
+					<td valign="bottom"><h:outputLabel id="Name">#{customerController.customer.customer_name}</h:outputLabel>
+					</td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">GMV:</td>
+
+					<td valign="bottom"><h:outputLabel id="Gmv">#{customerController.customer.customer_GMV}</h:outputLabel>
+					</td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">StreetAddress:</td>
+
+					<td valign="bottom"><h:outputLabel id="StreetAddress">#{customerController.customer.address.streetAddress}</h:outputLabel>
+					</td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">Suburb:</td>
+
+					<td valign="bottom"><h:outputLabel id="Suburb">#{customerController.customer.address.suburb}</h:outputLabel>
+					</td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">State:</td>
+
+					<td valign="bottom"><h:outputLabel id="State">#{customerController.customer.address.state}</h:outputLabel>
+					</td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">When cooperate:</td>
+
+					<td valign="bottom"><h:outputLabel id="Cooperate">#{customerController.customer.customer_co_year}</h:outputLabel>
+					</td>
+				</tr>
+				<tr>
+					<td width="100" valign="top">Type:</td>
+
+					<td valign="bottom"><h:outputLabel id="Type">#{customerController.customer.customer_type}</h:outputLabel>
+					</td>
+				</tr>
+			</table>
+
+			<table class="table table-bordered table-striped">
+				<tr>
+					<td><h:outputLabel id="contactId" value="Id" /></td>
+					<td><h:outputLabel id="contactName" value="Contact name" /></td>
+					<td><h:outputLabel id="contactPhoneNumber"
+							value="Contact phone number" /></td>
+					<td><h:outputLabel id="contactEmail" value="Contact email" /></td>
+					<td><h:outputLabel id="contactTitle" value="Contact title" /></td>
+					<td><h:outputLabel id="contactGMV" value="Contact GMV" /></td>
+
+				</tr>
+
+				<ui:repeat id="Myrepeat"
+					value="#{customerController.customer.customer_contacts}"
+					var="contact" varStatus="status">
+
+					<tr>
+						<td><h:outputText value="#{contact.contactID}" id="contactID" /></td>
+
+						<td><h:outputText id="contact_Name" value="#{contact.contact_name}" /></td>
+
+						<td><h:outputText id="contact_PhoneNumber"	value="#{contact.contact_phoneNumber}"></h:outputText></td>
+						<td><h:outputText id="contact_Email"	value="#{contact.contact_email}"></h:outputText></td>
+						<td><h:outputText id="contact_Title" value="#{contact.title}"></h:outputText></td>
+						<td><h:outputText id="contact_GMV" value="#{contact.contact_GMV}"></h:outputText></td>
+						<td>
+						    <h:link value="View | " outcome="contactDetail.xhtml">
+								<f:param name="contact_ID" value="#{contact.contactID}" />						
+							</h:link>
+							<h:link value="Edit | " outcome="editContact.xhtml">
+								<f:param name="contact_ID" value="#{contact.contactID}" />
+							</h:link>
+							<h:commandLink action="#{removeContact.deleteContact(contact.contactID)}"
+								value="Remove" disabled="#{contact.contactID == null}" >
+								<f:param name="customer_ID" value="#{contact.contact_company.customer_ID}" />
+							</h:commandLink>
+						</td>
+					</tr>
+				</ui:repeat>
+			</table>
+			<div>
+				<h:commandButton id="customerAddContact" value="Add Contact" action="customerAddTheContact" class="btn btn-primary">
+				<f:param name="customer_ID" value="#{customerController.customer.customer_ID}" />
+				<f:param name="customerID" value ="#{customerController.customer.customer_ID}" />
+				</h:commandButton>
+			</div>
+            <div>
+            <h:link id="Return" value="Return" outcome="adminCustomer.xhtml" class="btn btn-primary" />
+            </div>			
+		</h:form>
+	</div>
+</body>
+</html>

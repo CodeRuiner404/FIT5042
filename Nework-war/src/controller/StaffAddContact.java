@@ -1,0 +1,142 @@
+package controller;
+
+import javax.el.ELContext;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
+import javax.inject.Named;
+
+import entities.Contact;
+import entities.Customer;
+import mBeans.ContactManagedbean;
+import mBeans.CustomerManagedBean;
+
+@RequestScoped
+@Named("staffAddContact")
+public class StaffAddContact {
+	@ManagedProperty(value="#{contactManagedBean}")
+	ContactManagedbean contactManagedBean;
+	@ManagedProperty(value = "#{customerManagedBean}")
+	CustomerManagedBean customerManagedBean;
+	
+	private Application app;
+	private Contact contact;
+	private String Contact_name;
+	private String Contact_phoneNumber;
+	private String Contact_email;
+	private String title;
+	private Double contact_GMV;
+	private Customer customer;
+	private int customerID;
+	
+	public StaffAddContact() {
+		ELContext el = FacesContext.getCurrentInstance().getELContext();
+		app = (Application)FacesContext.getCurrentInstance()
+                .getApplication()
+                .getELResolver()
+                .getValue(el, null, "CustomerManagementApplication");
+		
+		ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+		contactManagedBean = (ContactManagedbean) FacesContext.getCurrentInstance().getApplication()
+                .getELResolver().getValue(elContext, null, "contactManagedBean");
+		
+		ELContext Context = FacesContext.getCurrentInstance().getELContext();
+		customerManagedBean = (CustomerManagedBean) FacesContext.getCurrentInstance().getApplication()
+                .getELResolver().getValue(Context, null, "customerManagedBean");
+		
+		
+		customerID = Integer.valueOf(
+				FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("customerID"));
+		
+		contact = getContact();
+		Contact_name = getContact_name();
+		Contact_phoneNumber = getContact_phoneNumber();
+		Contact_email = getContact_email();
+		title = getTitle();
+		contact_GMV =getContact_GMV();
+		customer = getCustomer();
+	}
+	
+	public void addContact() {
+		Contact ct = new Contact();
+		ct.setContact_name(Contact_name);
+		ct.setContact_phoneNumber(Contact_phoneNumber);
+		ct.setContact_company(customer);
+		ct.setContact_email(Contact_email);
+		ct.setTitle(title);
+		ct.setContact_GMV(contact_GMV);
+		contactManagedBean.customerAddTheContact(ct);
+		app.staffCustomerSearchAll();
+		app.contactSearchAll();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Contact has been added succesfully"));
+	}
+
+	public Contact getContact() {
+		return contact;
+	}
+
+	public void setContact(Contact contact) {
+		this.contact = contact;
+	}
+
+	public String getContact_name() {
+		return Contact_name;
+	}
+
+	public void setContact_name(String contact_name) {
+		Contact_name = contact_name;
+	}
+
+	public String getContact_phoneNumber() {
+		return Contact_phoneNumber;
+	}
+
+	public void setContact_phoneNumber(String contact_phoneNumber) {
+		Contact_phoneNumber = contact_phoneNumber;
+	}
+
+	public String getContact_email() {
+		return Contact_email;
+	}
+
+	public void setContact_email(String contact_email) {
+		Contact_email = contact_email;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Double getContact_GMV() {
+		return contact_GMV;
+	}
+
+	public void setContact_GMV(Double contact_GMV) {
+		this.contact_GMV = contact_GMV;
+	}
+
+	public Customer getCustomer() {
+		setCustomer(customerManagedBean.searchCustomerById(customerID));
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public int getCustomerID() {
+		return customerID;
+	}
+
+	public void setCustomerID(int customerID) {
+		this.customerID = customerID;
+	}
+	
+	
+
+}

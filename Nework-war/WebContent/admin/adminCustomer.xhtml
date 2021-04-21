@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	<title>Customer at here</title>
+</h:head>
+
+<body>
+	<div class="container">
+		<div class="navbar navbar-inverse">
+			<div class="navbar-brand">
+				<h1>Customer page</h1>
+			</div>
+		</div>
+		
+		<ui:include src="tab.xhtml" />
+
+		<h:form id="MyForm">
+			<table class="table table-bordered table-striped">
+				<tr>
+					<td><h:outputLabel id="ID" value="Customer ID" /></td>
+					<td><h:outputLabel id="Name" value="Customer name" /></td>
+					<td><h:outputLabel id="GMV" value="Customer GMV" /></td>
+
+				</tr>
+
+				<ui:repeat id="Myrepeat" value="#{CustomerManagementApplication.customers}" var="CUS" varStatus="status">
+					<tr>
+						<td><h:outputText id="id"
+								value="#{CUS.customer_ID}" />
+						</td>
+
+						<td><h:outputText id="name"
+								value="#{CUS.customer_name}" />
+						</td>
+
+						<td><h:outputText id="gmv"
+								value="#{CUS.customer_GMV}"></h:outputText>
+						</td>
+
+						<td>
+						<h:link value="View | " outcome="customerDeatil.xhtml">
+								<f:param name="customer_ID" value="#{CUS.customer_ID}" />
+						</h:link>
+					    <h:link value="Edit | " outcome="editCustomer.xhtml">
+								<f:param name="customer_ID" value="#{CUS.customer_ID}" />
+						</h:link>
+						<h:commandLink action="#{removeCustomer.removetheCustomer(CUS.customer_ID)}" value="Remove |" disabled="#{CUS.customer_ID == null}" />
+						<h:link value="Assign to staff " outcome="assignToStaff.xhtml">
+								<f:param name="customer_ID" value="#{CUS.customer_ID}" />
+						</h:link>							
+						</td>
+					</tr>
+				</ui:repeat>
+			</table>
+			
+			<div>
+				<h:commandButton id="add" value="Add Customer"
+					action="addCustomer.xhtml" class="btn btn-primary" />
+			</div>
+			<div>
+				<h:commandButton id="reset" value="reset"
+					action="#{searchCustomer.reset()}" class=" btn btn-primary">
+					<f:param name="customer_ID" value="#{status.index + 1}" />
+				</h:commandButton>
+			</div>
+			<div>
+				<h:inputText value="#{searchCustomer.intInput}" id="searchById"
+					required="true"
+					onchange="if (document.getElementById('MyForm:searchById').value.trim() == '') {document.getElementById('MyForm:searchById').value = 0;} " />
+				<h:commandButton id="searchId" value="Search by Id"
+					action="#{searchCustomer.searchCustomerByID(searchCustomer.intInput)}"
+					class="btn btn-primary">
+					<f:param name="customer_ID" value="#{status.index + 1}" />
+				</h:commandButton>
+			</div>
+			<div>
+				<h:inputText value="#{searchCustomer.doubleInput}" id="searchByGMV"
+					required="true"
+					onchange="if (document.getElementById('MyForm:searchByGMV').value.trim() == '') {document.getElementById('MyForm:searchByGMV').value = 0.0;} " />
+				<h:commandButton id="searchGMV" value="Search by GMV"
+					action="#{searchCustomer.serchCustomerByGMV(searchCustomer.doubleInput)}"
+					class="btn btn-primary">
+					<f:param name="customer_ID" value="#{status.index + 1}" />
+				</h:commandButton>
+			</div>
+				<div>
+				<h:inputText value="#{searchCustomer.contactIdInput}" id="SearchByContactId"	required="true"
+					onchange="if (document.getElementById('MyForm:SearchByContactId').value.trim() == '') {document.getElementById('MyForm:SearchByContactId').value = 0;} " />
+				<h:commandButton id="searchContactId" value="Search by contact Id" action="#{searchCustomer.searchCustomerByContactId(searchCustomer.contactIdInput)}"
+					class="btn btn-primary">
+					<f:param name="customer_ID" value="#{status.index + 1}" />
+				</h:commandButton>
+			</div>	
+		</h:form>
+	</div>
+</body>
+</html>
